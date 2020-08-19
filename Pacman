@@ -1,0 +1,246 @@
+package pacmanfz;
+
+import java.awt.*;
+import java.awt.event.*;
+import static java.awt.image.ImageObserver.HEIGHT;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.util.Random;
+import javax.swing.JFrame;
+
+public class PacmanFZ extends Panel
+        implements KeyListener {
+
+
+    PacmanFZ() {
+        this.setBackground(new Color(194,11,11));
+    }
+
+    static int y = 90, x = 100, sa = 23, mouth = 315, pacmanSize = 100, score = 0;
+    static Color color = Color.YELLOW;
+    static int xFood = 300, yFood = 350, foodSize = 25;
+  
+
+    @Override
+    public void paint(Graphics zel) {
+        
+        zel.setColor(Color.BLACK);
+        zel.setFont(new Font("Chiller", Font.BOLD, 55));
+        zel.drawString("Your Score: " + score, 30, 60);
+       
+        
+        zel.setColor(Color.DARK_GRAY);
+        zel.fillArc(x, y, pacmanSize, pacmanSize, sa, mouth);
+        zel.fillOval(x, y, WIDTH, HEIGHT);
+        
+        zel.setColor(new Color(3,5,43));
+        zel.fillOval(xFood, yFood, foodSize, foodSize);
+
+        if (score == 0) {
+            
+            zel.setColor(new Color(12,101,81));
+            zel.setFont(new Font("Chiller", Font.BOLD, 55));
+            zel.drawString("Your Score: " + score, 30, 60);
+            
+            zel.setColor(Color.BLACK);
+            zel.fillRoundRect(148, 165, 280, 190, 40, 40);
+            
+            zel.setColor(Color.WHITE);
+            zel.setFont(new Font("Chiller", Font.BOLD, 50));
+            zel.drawString("Start the Game!", 148, 240);
+            zel.setFont(new Font("Chiller", Font.BOLD, 30));
+            zel.drawString("Level 1!", 240, 280);
+        }
+        
+        
+        if (score == 5) {
+            
+            zel.setColor(new Color(73,8,87));
+            zel.setFont(new Font("Chiller", Font.BOLD, 55));
+            zel.drawString("Your Score: " + score, 30, 60);
+            
+            zel.setColor(new Color(73,8,87));
+            zel.fillRoundRect(170, 165, 260, 150, 40, 40);
+            
+            zel.setColor(Color.RED);
+            zel.setFont(new Font("Chiller", Font.BOLD, 50));
+            zel.drawString("Next Level!", 200, 240);
+            zel.setFont(new Font("Chiller", Font.BOLD, 30));
+            zel.drawString("Level 2!", 240, 280);
+        }
+        
+        
+         if (score == 10) {
+            
+            zel.setColor(new Color(9,78,10));
+            zel.setFont(new Font("Chiller", Font.BOLD, 55));
+            zel.drawString("Your Score: " + score, 30, 60);
+            
+            zel.setColor(new Color(9,78,10));
+            zel.fillRoundRect(170, 165, 260, 150, 40, 40);
+            
+            zel.setColor(Color.RED);
+            zel.setFont(new Font("Chiller", Font.BOLD, 50));
+            zel.drawString("Next Level!", 200, 240);
+            zel.setFont(new Font("Chiller", Font.BOLD, 30));
+            zel.drawString("Level 3!", 240, 280);
+         }
+         
+          if (score == 15) {
+            
+            zel.setColor(Color.WHITE);
+            zel.setFont(new Font("Chiller", Font.BOLD, 55));
+            zel.drawString("Your Score: " + score, 30, 60);
+            
+            zel.setColor(Color.WHITE);
+            zel.fillRoundRect(170, 165, 260, 150, 40, 40);
+            
+            zel.setColor(Color.RED);
+            zel.setFont(new Font("Chiller", Font.BOLD, 50));
+            zel.drawString("Next Level!", 200, 240);
+            zel.drawString("Level 4!", 240, 280);
+         }
+         
+        if (score == 20) {
+            
+            zel.setColor(Color.BLACK);
+            zel.setFont(new Font("Chiller", Font.BOLD, 55));
+            zel.drawString("Your Score: " + score, 30, 60);
+            
+            zel.setColor(Color.BLACK);
+            zel.fillRoundRect(85, 180, 400, 200, 40, 40);
+               
+            zel.setColor(Color.RED);
+            zel.setFont(new Font("Chiller", Font.BOLD, 100));
+            zel.drawString("YOU WIN!", 100, 300);
+            
+        }
+       
+    }
+         
+            
+    public static void main(String args[]) {
+        JFrame frame = new JFrame();
+        PacmanFZ panel = new PacmanFZ();
+        panel.addKeyListener(panel);
+        frame.add(panel);
+        frame.setSize(600, 600);
+        frame.setVisible(true);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(
+                JFrame.EXIT_ON_CLOSE);
+    }
+
+    
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    if(score < 20){
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (y <= -100) 
+            {
+                y = (getHeight());
+            } else {
+                y -= 4;
+            }
+
+            if (y <= -500) {
+                y = getWidth();
+            }
+            y -= 5;
+
+            sa = 113;
+            if (y % 2 == 0) {
+                mouth = 360;
+            } else {
+                mouth = 315;
+            }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (y >= (getHeight() - 0))
+            {
+                y = -90;
+            } else {
+                y += 2;
+            }
+
+            if (y >= getWidth()) {
+                y = -400;
+            }
+            y += 5;
+
+            sa = 293;
+            if (y % 2 == 0) {
+                mouth = 360;
+            } else {
+                mouth = 315;
+            }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            if (x >= (getHeight() - 0)) 
+            {
+                x = -90;
+            } else {
+                x -= 2;
+            }
+
+            if (x <= -400) {
+                x = getWidth();
+            }
+            x -= 5;
+
+            sa = 200;
+            if (x % 2 == 0) {
+                mouth = 360;
+            } else {
+                mouth = 315;
+            }
+
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if (x >= (getHeight() - 0)) 
+            {
+                x = -110;
+            } else {
+                x += 4;
+            }
+
+            if (x >= getWidth()) {
+                x = - 300;
+
+            }
+            x += 5;
+
+            sa = 23;
+            if (x % 2 == 0) {
+                mouth = 360;
+            } else {
+                mouth = 315;
+            }
+
+        }
+
+        if (x + pacmanSize - 25 > xFood && y + pacmanSize - 25 > yFood
+                && x < xFood + foodSize && y < yFood + foodSize) {
+
+            xFood = new Random().nextInt(getWidth() - 150) + 50;
+
+            yFood = new Random().nextInt(getHeight() - 150) + 50;
+
+            score += 1;
+
+        }
+
+        repaint();
+    }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+}
+
